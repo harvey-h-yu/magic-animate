@@ -12,6 +12,7 @@ import argparse
 import argparse
 import datetime
 import inspect
+import logging
 import os
 import numpy as np
 from PIL import Image
@@ -126,6 +127,7 @@ class MagicAnimate():
         print("Initialization Done!")
         
     def __call__(self, source_image, motion_sequence, random_seed, step, guidance_scale, size=512):
+            logging.info("def __call__(self, source_image, motion_sequence, random_seed, step, guidance_scale, size=512):")
             prompt = n_prompt = ""
             random_seed = int(random_seed)
             step = int(step)
