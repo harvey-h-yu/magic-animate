@@ -9,6 +9,7 @@
 # without an express license agreement from ByteDance or
 # its affiliates is strictly prohibited.
 import argparse
+import logging
 import imageio
 import os, datetime
 import numpy as np
@@ -21,6 +22,7 @@ savedir = f"demo/outputs"
 os.makedirs(savedir, exist_ok=True)
 
 def animate(reference_image, motion_sequence, seed, steps, guidance_scale):
+    logging.info("animate(reference_image, motion_sequence, seed, steps, guidance_scale):")
     time_str = datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
     animation_path = f"{savedir}/{time_str}.mp4"
     save_path = "./demo/tmp/input_reference_image.png"
@@ -37,6 +39,7 @@ def animate(reference_image, motion_sequence, seed, steps, guidance_scale):
     return animation_path
 
 with gr.Blocks() as demo:
+    logging.info("gr.Blocks() as demo:")
 
     gr.HTML(
         """
@@ -67,6 +70,7 @@ with gr.Blocks() as demo:
             submit              = gr.Button("Animate")
 
     def read_video(video, size=512):
+        logging.info("read_video(video, size=512):")
         size = int(size)
         reader = imageio.get_reader(video)
         # fps = reader.get_meta_data()['fps']
@@ -78,6 +82,7 @@ with gr.Blocks() as demo:
         return save_path
     
     def read_image(image, size=512):
+        logging.info("read_image(image, size=512):")
         img = np.array(Image.fromarray(image).resize((size, size)))
         return img
         
